@@ -3,8 +3,10 @@
     <main>
         <!-- Шапка -->
         <header>
-            <img src="./components/media/i-logo.png" alt="">
-            <h3>База данных</h3>
+            <router-link to="/">
+                <img src="./components/media/i-logo.png" alt="">
+                <h3>База данных</h3>
+            </router-link>
         </header>
         <!-- Блок со всей логикой -->
         <div class="content">
@@ -14,20 +16,27 @@
             </div>
             <!-- Меню -->
             <ul class="sidebar">
-                <li><button>Список пользователей</button></li>
-                <li><button>Новый пользователь</button></li>
-                <li><button>Удалить по параметру</button></li>
-                <li><button>Изменить по параметру</button></li>
-                <li><button>Отправить e-mail</button></li>
-                <li><button>Отсортировать</button></li>
-                <li><button>Сохранить изменения</button></li>
-                <li><button>Выход</button></li>
+                <router-link to="/users">Список пользователей</router-link>
+                <router-link to="/create-user">Новый пользователь</router-link>
+                <router-link to="/delete-by-property">Удалить по параметру</router-link>
+                <router-link to="/change-by-property">Изменить по параметру</router-link>
+                <router-link to="/send-email">Отправить e-mail</router-link>
+                <router-link to="/sort">Отсортировать</router-link>
+                <button @click="saveChanges()">Сохранить изменения</button>
+                <button @click="exit()">Выход</button>
             </ul>
         </div>
     </main>
 </template>
 
 <script setup>
+
+const saveChanges = () => {
+    console.log('Saved!')
+}
+const exit = () => {
+    console.log('Exited!')
+}
 
 </script>
 
@@ -42,17 +51,18 @@ main {
     display: flex;
     flex-direction: column;
     gap: 25px;
+    box-shadow: 0 0 25px rgb(0, 0, 0, .5);
 }
 
 /* Стили шапки */
-header {
+header>a {
     display: flex;
     align-items: center;
     gap: 15px;
     color: var(--accent);
 }
 
-header>img {
+header>a>img {
     height: 50px;
 }
 
@@ -63,6 +73,7 @@ header>img {
     justify-content: space-between;
 }
 
+/* Стили меню навигации */
 .sidebar {
     list-style: none;
     display: flex;
@@ -71,9 +82,10 @@ header>img {
     background-color: var(--semi-dark);
     padding: 25px;
     border-radius: 25px;
-    box-shadow: 0 0 10px rgb(0,0,0,.3);
+    box-shadow: 0 0 10px rgb(0, 0, 0, .3);
 }
-.sidebar>li>button{
+
+.sidebar>* {
     border: solid 3px var(--accent);
     border-radius: 15px;
     background-color: transparent;
@@ -82,8 +94,15 @@ header>img {
     padding: 15px;
     width: 100%;
     font-weight: bold;
+    text-align: center;
 }
-.sidebar>li>button:hover{
+.sidebar>.router-link-active{
+    color: var(--dark);
+    background-color: var(--accent);
+    border-color: var(--dark);
+}
+
+.sidebar>*:hover {
     transition: .3s;
     transform: scale(1.1);
 }
