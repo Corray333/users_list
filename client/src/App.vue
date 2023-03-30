@@ -30,9 +30,33 @@
 </template>
 
 <script setup>
+import { useStore } from 'vuex'
+import { ref, onMounted } from 'vue'
+
+const store = useStore()
+const users = ref()
+
+// Загрузка данных с сервера
+onMounted(() => {
+    fetch('http://localhost:5000')
+        .then(response => response.json())
+        .then(data => { store.commit('set_users', data) })
+        .catch(error => { users.value = `Ошибка: ${error}` })
+
+})
+
 
 const saveChanges = () => {
-    console.log('Saved!')
+    const url = 'http://localhost:5000';
+    const data = store.state.users
+
+    fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
 }
 const exit = () => {
     console.log('Exited!')
@@ -97,14 +121,21 @@ header>a>img {
     font-weight: bold;
     text-align: center;
 }
-.sidebar>.router-link-active{
+
+.sidebar>.router-link-active {
     color: var(--dark);
     background-color: var(--accent);
     border-color: var(--dark);
 }
 
-.sidebar>*:hover {
+.sidebar>a:hover,
+button:hover {
     transition: .3s;
     transform: scale(1.1);
+}
+
+/* Стили блока с роутами */
+.content-container {
+    width: 100%;
 }
 </style>

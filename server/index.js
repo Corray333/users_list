@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const {getUsers, deleteUser, changeUser} = require('./db')
+const {getUsers, saveChanges} = require('./db')
 
 const app = express()
 
@@ -9,7 +9,11 @@ app.use(cors())
 
 // Получение всех пользователей
 app.get('/', (req, res)=>{
-    res.send(getUsers({}))
+    res.send(getUsers())
+})
+
+app.put('/', (req, res)=>{
+    saveChanges(req.body)
 })
 
 
