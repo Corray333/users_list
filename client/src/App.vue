@@ -71,6 +71,7 @@ header>a>img {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    gap: 25px;
 }
 
 /* Стили меню навигации */

@@ -18,6 +18,9 @@
     text-decoration: none;
     outline: none;
 }
+a{
+    white-space: nowrap;
+}
 #app{
     background-color: var(--bluish);
     width: 100vw;
@@ -26,4 +29,18 @@
     align-items: center;
     justify-content: center;
     padding: 50px;
+}
+/* Подобные элементы будут встречаться в разных роутах, но их вид будет в достаточной степени отличаться, поэтому для них написаны только глобальные классы, а не отдельные компоненты */
+.cards-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 25px;
+}
+.card{
+    border-radius: 25px;
+    box-shadow: 0 0 10px rgb(0, 0, 0, .3);
+    background-color: var(--semi-dark);
+    padding: 25px;
+    color: white;
 }
