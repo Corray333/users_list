@@ -32,9 +32,12 @@
 <script setup>
 import { useStore } from 'vuex'
 import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = useStore()
 const users = ref()
+
+const router = useRouter()
 
 // Загрузка данных с сервера
 onMounted(() => {
@@ -58,8 +61,9 @@ const saveChanges = () => {
         body: JSON.stringify(data)
     })
 }
-const exit = () => {
-    console.log('Exited!')
+const exit = async () => {
+    await router.push('/')
+    location.reload()
 }
 
 </script>
@@ -68,7 +72,7 @@ const exit = () => {
 /* Стили основного блока */
 main {
     background-color: var(--dark);
-    width: 750px;
+    width: 850px;
     height: 100%;
     border-radius: 25px;
     padding: 50px;
@@ -96,6 +100,7 @@ header>a>img {
     width: 100%;
     justify-content: space-between;
     gap: 25px;
+    overflow: hidden;
 }
 
 /* Стили меню навигации */
@@ -108,6 +113,7 @@ header>a>img {
     padding: 25px;
     border-radius: 25px;
     box-shadow: 0 0 10px rgb(0, 0, 0, .3);
+    height: fit-content;
 }
 
 .sidebar>* {
@@ -137,5 +143,11 @@ button:hover {
 /* Стили блока с роутами */
 .content-container {
     width: 100%;
+    overflow-y: scroll;
+    filter: drop-shadow(0 0 7px rgb(0,0,0,.5));
+    padding: 10px;
+}
+.content-container::-webkit-scrollbar{
+    width: 0;
 }
 </style>

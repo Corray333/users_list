@@ -14,6 +14,7 @@ app.get('/', (req, res)=>{
 
 app.put('/', (req, res)=>{
     saveChanges(req.body)
+    res.send('Данные занесены в базу данных!')
 })
 
 

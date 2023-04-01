@@ -2,3 +2,8 @@ dist
 node_modules
 
 client/node_modules
+client/.vscode
+client/README.md
+
+server/todo.txt
+server/usersDB.json
