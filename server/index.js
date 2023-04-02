@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const {getUsers, saveChanges} = require('./db')
+const {sendEmail} = require('./emailSender')
 
 const app = express()
 
@@ -15,6 +16,11 @@ app.get('/', (req, res)=>{
 app.put('/', (req, res)=>{
     saveChanges(req.body)
     res.send('Данные занесены в базу данных!')
+})
+
+app.post('/', (req,res)=>{
+    console.log(req.body)
+    sendEmail(req.body.recipient, req.body.subject, req.body.text).then(res.send({text: 'Сообщение отправлено!'}))
 })
 
 

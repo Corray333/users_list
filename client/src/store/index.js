@@ -17,6 +17,17 @@ const store =  createStore({
         },
         delete_user(state, id){
             state.users.splice(id, 1)
+        },
+        sort_users(state, params){
+            state.users.sort(( a, b ) => {
+                if ( params.descending ? a[params.option] < b[params.option] : a[params.option] > b[params.option]  ){
+                  return 1;
+                }
+                  if ( params.descending ? a[params.option] > b[params.option] : a[params.option] < b[params.option]  ){
+                  return -1;
+                }
+                return 0;
+              })
         }
     }
 })
